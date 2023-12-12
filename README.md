@@ -28,8 +28,8 @@
                 # Other proxy settings as needed
             }
     
-            # Health check endpoint for api.fidauth.com
-            location /health-api {
+            # Health check endpoint for api1.example.com
+            location /health-api1 {
                 access_log off;
                 proxy_pass http://api1.example.com;
                 proxy_set_header Host $host;
@@ -38,8 +38,8 @@
                 proxy_set_header X-Forwarded-Proto $scheme;
             }
     
-            # Health check endpoint for develop.fidauth.com
-            location /health-develop {
+            # Health check endpoint for api2.example.com
+            location /health-api2 {
                 access_log off;
                 proxy_pass http://api2.example.com;
                 proxy_set_header Host $host;
