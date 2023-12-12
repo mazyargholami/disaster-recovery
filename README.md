@@ -3,20 +3,20 @@
 ## Nginx configurations
     http {
         upstream backend {
-            server api.fidauth.com max_fails=3 fail_timeout=30s;
-            server develop.fidauth.com max_fails=3 fail_timeout=30s;
+            server api1.example.com max_fails=3 fail_timeout=30s;
+            server api2.example.com max_fails=3 fail_timeout=30s;
             # Add more servers as needed
         }
     
         server {
             listen 80;
-            server_name fidauth.com;
+            server_name example.com;
             return 301 https://$host$request_uri;
         }
     
         server {
             listen 443 ssl;
-            server_name fidauth.com;
+            server_name example.com;
     
             ssl_certificate /path/to/ssl/certificate.crt;
             ssl_certificate_key /path/to/ssl/private.key;
@@ -31,7 +31,7 @@
             # Health check endpoint for api.fidauth.com
             location /health-api {
                 access_log off;
-                proxy_pass http://api.fidauth.com;
+                proxy_pass http://api1.example.com;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -41,7 +41,7 @@
             # Health check endpoint for develop.fidauth.com
             location /health-develop {
                 access_log off;
-                proxy_pass http://develop.fidauth.com;
+                proxy_pass http://api2.example.com;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -54,23 +54,22 @@ Synchronizing databases across multiple servers, often referred to as database r
 
 Here's a basic guide to set up streaming replication with two PostgreSQL servers:
 
-1. Configure the Primary Server:
+#### 1. Configure the Primary Server:
 Update the PostgreSQL configuration file (usually located at /etc/postgresql/{version}/main/postgresql.conf) on the primary server to enable streaming replication. Add or modify the following lines:
-conf
-Copy code
-wal_level = replica
-max_wal_senders = 3
-max_replication_slots = 3
+
+    wal_level = replica
+    max_wal_senders = 3
+    max_replication_slots = 3
 Restart PostgreSQL for the changes to take effect.
-2. Create a Replication User:
+
+#### 2. Create a Replication User:
 Create a replication user on the primary server and grant necessary permissions:
-sql
-Copy code
-CREATE USER replication_user REPLICATION LOGIN CONNECTION LIMIT 5 ENCRYPTED PASSWORD 'your_password';
-3. Configure Primary Server for Replication:
+
+    CREATE USER replication_user REPLICATION LOGIN CONNECTION LIMIT 5 ENCRYPTED PASSWORD 'your_password';
+#### 3. Configure Primary Server for Replication:
 Edit the pg_hba.conf file (usually located at /etc/postgresql/{version}/main/pg_hba.conf) to allow replication connections. Add the following line:
-Copy code
-host replication replication_user standby_ip/32 md5
+
+    host replication replication_user standby_ip/32 md5
 Reload PostgreSQL for changes to take effect.
 4. Take a Base Backup on Standby:
 On the standby server, take a base backup of the primary server. This is done using the pg_basebackup tool.
