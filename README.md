@@ -81,6 +81,7 @@ Ensure that the data directory (/path/to/standby/data in this example) is empty 
 
 #### 5. Configure Standby Server:
 Create a recovery configuration file (recovery.conf) in the standby server's data directory with the following content:
+/var/lib/postgresql/data/recovery.conf
 
     standby_mode = on
     primary_conninfo = 'host=primary_ip port=5432 user=replication_user password=your_password'
