@@ -79,7 +79,7 @@ On the standby server, take a base backup of the primary server. This is done us
     pg_basebackup -h primary_ip -U replication_user -D /path/to/standby/data -P --wal-method=stream
 Ensure that the data directory (/path/to/standby/data in this example) is empty before running the command.
 
-####5. Configure Standby Server:
+#### 5. Configure Standby Server:
 Create a recovery configuration file (recovery.conf) in the standby server's data directory with the following content:
 
     standby_mode = on
@@ -92,11 +92,13 @@ Adjust the values accordingly.
 Start the standby server. PostgreSQL will continuously apply changes from the primary server's write-ahead log (WAL) files.
 
 #### 7. Monitor Replication:
-Use PostgreSQL's administrative functions to monitor replication status (pg_stat_replication, pg_stat_wal_receiver, etc.).
+Use PostgreSQL's administrative functions to monitor replication 
+
+status (pg_stat_replication, pg_stat_wal_receiver, etc.).
 
 #### 8. Failover (Optional):
 In case of a primary server failure, promote the standby server to become the new primary. This involves triggering the failover manually or using automated tools.
-Please note that this is a simplified guide, and depending on your specific requirements and PostgreSQL version, you may need to adjust the steps. Additionally, consider using tools like Patroni or repmgr for automated failover and additional management capabilities. Always refer to the official PostgreSQL documentation for the version you're using for detailed and version-specific instructions.
+
 
 
 
