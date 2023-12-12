@@ -66,31 +66,35 @@ Restart PostgreSQL for the changes to take effect.
 Create a replication user on the primary server and grant necessary permissions:
 
     CREATE USER replication_user REPLICATION LOGIN CONNECTION LIMIT 5 ENCRYPTED PASSWORD 'your_password';
+    
 #### 3. Configure Primary Server for Replication:
 Edit the pg_hba.conf file (usually located at /etc/postgresql/{version}/main/pg_hba.conf) to allow replication connections. Add the following line:
 
     host replication replication_user standby_ip/32 md5
 Reload PostgreSQL for changes to take effect.
-4. Take a Base Backup on Standby:
+
+#### 4. Take a Base Backup on Standby:
 On the standby server, take a base backup of the primary server. This is done using the pg_basebackup tool.
-bash
-Copy code
-pg_basebackup -h primary_ip -U replication_user -D /path/to/standby/data -P --wal-method=stream
+
+    pg_basebackup -h primary_ip -U replication_user -D /path/to/standby/data -P --wal-method=stream
 Ensure that the data directory (/path/to/standby/data in this example) is empty before running the command.
-5. Configure Standby Server:
+
+####5. Configure Standby Server:
 Create a recovery configuration file (recovery.conf) in the standby server's data directory with the following content:
-conf
-Copy code
-standby_mode = on
-primary_conninfo = 'host=primary_ip port=5432 user=replication_user password=your_password'
-restore_command = 'cp /path/to/archive/%f %p'
-trigger_file = '/path/to/standby/data/failover.trigger'
+
+    standby_mode = on
+    primary_conninfo = 'host=primary_ip port=5432 user=replication_user password=your_password'
+    restore_command = 'cp /path/to/archive/%f %p'
+    trigger_file = '/path/to/standby/data/failover.trigger'
 Adjust the values accordingly.
-6. Start Standby Server:
+
+#### 6. Start Standby Server:
 Start the standby server. PostgreSQL will continuously apply changes from the primary server's write-ahead log (WAL) files.
-7. Monitor Replication:
+
+#### 7. Monitor Replication:
 Use PostgreSQL's administrative functions to monitor replication status (pg_stat_replication, pg_stat_wal_receiver, etc.).
-8. Failover (Optional):
+
+#### 8. Failover (Optional):
 In case of a primary server failure, promote the standby server to become the new primary. This involves triggering the failover manually or using automated tools.
 Please note that this is a simplified guide, and depending on your specific requirements and PostgreSQL version, you may need to adjust the steps. Additionally, consider using tools like Patroni or repmgr for automated failover and additional management capabilities. Always refer to the official PostgreSQL documentation for the version you're using for detailed and version-specific instructions.
 
