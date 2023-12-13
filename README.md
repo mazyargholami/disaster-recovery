@@ -57,6 +57,7 @@ Here's a basic guide to set up streaming replication with two PostgreSQL servers
 #### 1. Configure the Primary Server:
 Update the PostgreSQL configuration file (usually located at /etc/postgresql/{version}/main/postgresql.conf) on the primary server to enable streaming replication. Add or modify the following lines:
 
+    listen_addresses = "*"
     wal_level = replica
     max_wal_senders = 3
     max_replication_slots = 3
