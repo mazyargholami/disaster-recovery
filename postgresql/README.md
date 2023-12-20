@@ -62,6 +62,8 @@
 	---
 	restore_command = 'cp /u02/hl_dev_db/wal_archive/%f "%p"'
 	recovery_target_time = '2023-03-08 15:45:00'
+ 	# or
+  	recovery_target_time = "2023-03-08 15:45:00 GMT"
 	---
 	
 	# start the database 
