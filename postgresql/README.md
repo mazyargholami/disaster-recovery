@@ -1,44 +1,46 @@
 # PostgreSQL Configurations 
 
-# Primary
-locate initdb
-mkdir primary_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
-mkdir tmp
-/usr/lib/postgresql/16/bin/initdb -D /home/stark/Projects/lab/database/primary_db
-vim /home/stark/Projects/lab/database/primary_db/postgresql.conf
-	listen_addresses = '*'
-	port = 5433
-	unix_socket_directories = '/home/stark/Projects/lab/database/primary_db/tmp/'
-	max_wal_senders = 10
-	wal_level = replica
-	max_replication_slots = 10
-	# synchronous_commit = on
-	# synchronous_standby_names = '*'
+## Primary
+	locate initdb
+	mkdir primary_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
+	cd primary_db
+	mkdir tmp
+	/usr/lib/postgresql/16/bin/initdb -D /home/stark/Projects/lab/database/primary_db
+- #### vim /home/stark/Projects/lab/database/primary_db/postgresql.conf
+		listen_addresses = '*'
+		port = 5433
+		unix_socket_directories = '/home/stark/Projects/lab/database/primary_db/tmp/'
+		max_wal_senders = 10
+		wal_level = replica
+		max_replication_slots = 10
+		# synchronous_commit = on
+		# synchronous_standby_names = '*'
 
-#sudo chmod +x /var/run/postgresql
-# /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db -l logfile start
-/usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db start
-/usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db stop
+	- sudo chmod +x /var/run/postgresql # if you don't wanna use initdb
+	- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db -l logfile start
+	- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db start
+	- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db stop
 
-psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
-	CREATE USER repuser REPLICATION LOGIN CONNECTION LIMIT 5 ENCRYPTED PASSWORD 'your_password';
-	SELECT pg_create_physical_replication_slot('hot_standby_1');
-	\q
+- #### psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
+  
+		CREATE USER repuser REPLICATION LOGIN CONNECTION LIMIT 5 ENCRYPTED PASSWORD 'your_password';
+		SELECT pg_create_physical_replication_slot('hot_standby_1');
+		\q
 
-vim /home/stark/Projects/lab/database/primary_db/pg_hba.conf
-	# IPv4 local connections:
-	host	all	repuser		<standby_ip>/32	trust
+- #### vim /home/stark/Projects/lab/database/primary_db/pg_hba.conf
+		# IPv4 local connections:
+		host	all	repuser		<standby_ip>/32	trust
 
-/usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db restart
+- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/primary_db restart
 
 
 
-# Standby 
+## Standby 
 mkdir replica_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
 pg_basebackup -h <primary_ip> -U repuser --checkpoint=fast \
 	-D /home/stark/Projects/lab/database/replica_db -R --slot=some_name -C --port=5433
- or
- pg_basebackup -h primary_ip -U repuser -D /home/stark/Projects/lab/database/replica_db -P --wal-method=stream
+or
+pg_basebackup -h primary_ip -U repuser -D /home/stark/Projects/lab/database/replica_db -P --wal-method=stream
 
 cd replica_db
 cat postgresql.auto.conf
@@ -57,17 +59,17 @@ vim postgresql.conf
 
 /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db start
 
-# Primary
+## Primary
 psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
 	\x
 	select * from pg_stat_replication;
 
-# Standby
+## Standby
 psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
 	\x
 	select * from pg_stat_wal_receiver;
 
-# Primary
+## Primary
 psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
 	\x
 	create table tbl(id int);
@@ -75,14 +77,14 @@ psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tm
 	insert into tbl values(2);
 	\x
 
-# Standby
+## Standby
 psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
 	select * from tbl;
 
-# Manual make standby to primary
+## Manual make standby to primary
 /usr/lib/postgresql/16/bin/pg_ctl promote -D /home/stark/Projects/lab/database/replica_db
 
-# SSL
+## SSL
 vim /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
 	#!/bin/bash
 	umask 0177
@@ -110,10 +112,10 @@ ls /var/lib/postgresql/12/main/server.*
 
 /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db restart
 
-# Testing SSL Connection
+## Testing SSL Connection
 psql -d "dbname=postgres sslmode=require" -h psql.example.com -U postgres
 
-# Extra Info
+## Extra Info
 psql -d postgresql://postgres:password@localhost:5432/dbname 
 -c "create database sample1 --or any command"
 
