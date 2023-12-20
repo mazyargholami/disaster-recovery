@@ -89,41 +89,40 @@
 - /usr/lib/postgresql/16/bin/pg_ctl promote -D /home/stark/Projects/lab/database/replica_db
 
 ## SSL
-vim /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
-	#!/bin/bash
-	umask 0177
-	DOMAIN=psql.example.com
-	DATA_DIR=/var/lib/postgresql/12/main
-	cp /etc/letsencrypt/live/$DOMAIN/fullchain.pem $DATA_DIR/server.crt
-	cp /etc/letsencrypt/live/$DOMAIN/privkey.pem $DATA_DIR/server.key
-	chown postgres:postgres $DATA_DIR/server.crt $DATA_DIR/server.key
+- #### vim /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
+		#!/bin/bash
+		umask 0177
+		DOMAIN=psql.example.com
+		DATA_DIR=/var/lib/postgresql/12/main
+		cp /etc/letsencrypt/live/$DOMAIN/fullchain.pem $DATA_DIR/server.crt
+		cp /etc/letsencrypt/live/$DOMAIN/privkey.pem $DATA_DIR/server.key
+		chown postgres:postgres $DATA_DIR/server.crt $DATA_DIR/server.key
 
-chmod +x /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
+- chmod +x /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
 
-vim postgresql.conf
-	ssl = on
-	ssl_cert_file = 'server.crt'
-	ssl_key_file = 'server.key'
-	ssl_prefer_server_ciphers = on
+- #### vim postgresql.conf
+		ssl = on
+		ssl_cert_file = 'server.crt'
+		ssl_key_file = 'server.key'
+		ssl_prefer_server_ciphers = on
 
-vim pg_hba.conf
-	# Allow replication connections from localhost , by a user with the
-	# replication privilege
-	hostssl		all	all	0.0.0.0/0	md5
-	host		all	all	0.0.0.0/0	md5
+- #### vim pg_hba.conf
+		# Allow replication connections from localhost , by a user with the
+		# replication privilege
+		hostssl		all	all	0.0.0.0/0	md5
+		host		all	all	0.0.0.0/0	md5
 
-ls /var/lib/postgresql/12/main/server.*
+- ls /var/lib/postgresql/12/main/server.*
 
-/usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db restart
+- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db restart
 
 ## Testing SSL Connection
-psql -d "dbname=postgres sslmode=require" -h psql.example.com -U postgres
+	psql -d "dbname=postgres sslmode=require" -h psql.example.com -U postgres
 
 ## Extra Info
-psql -d postgresql://postgres:password@localhost:5432/dbname 
--c "create database sample1 --or any command"
+	psql -d postgresql://postgres:password@localhost:5432/dbname -c "create database sample1 --or any command"
 
-pg_lsclusters
+	pg_lsclusters
 
 
 
