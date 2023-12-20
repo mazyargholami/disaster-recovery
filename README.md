@@ -1,9 +1,8 @@
 # Disaster Recovery
 
 Disaster recovery planning is crucial for ensuring the resilience and availability of critical systems like Nginx (a web server) and PostgreSQL (a relational database management system). Additionally, effective monitoring is essential for proactively identifying issues and mitigating potential disasters. Let's explore disaster recovery and monitoring strategies for Nginx and PostgreSQL.
-<h1 align="center">
-<img   src="./assets/it-diasaster.png">
-</h1>
+
+<h1 align="center"> <img  width=400 src="./assets/it-diasaster.png"> </h1>
 
 ## Nginx:
 
