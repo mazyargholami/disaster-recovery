@@ -1,5 +1,7 @@
 # PostgreSQL Configurations 
 
+<p align="center" ><img width=200 src="../assets/features_root_analysis.png"> </p>
+
 ## Primary
  	locate initdb
 	mkdir primary_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
