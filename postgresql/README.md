@@ -1,5 +1,7 @@
 # PostgreSQL Archiving and Point-in-Time Recovery (PITR)
 
+<p align="center" ><img width=800 src="../assets/fig-10-02.png"> </p>
+
 ## Enable Archiving
 - In the postgresql.conf file, set the archive_mode configuration parameter to on. This will enable archiving.
   
