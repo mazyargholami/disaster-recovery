@@ -1,4 +1,30 @@
-# PostgreSQL Configurations 
+# PostgreSQL Archiving and Point-in-Time Recovery (PITR)
+
+## Enable Archiving
+- In the postgresql.conf file, set the archive_mode configuration parameter to on. This will enable archiving.
+  
+## Configure Archive Command
+- In the postgresql.conf file, set the archive_command configuration parameter to a command that will copy the WAL files to a safe location. For example, you can use the following command:
+
+		# directory structure, I used in this tutorial
+		/u01    - PostgreSQL Data Directory Mount
+		/u02    - Wal Archives Mount
+		/backup - Backups Mount
+		
+		# data dir
+		/u01/h1_dev_db/data
+		
+		# create directory for wal_archives
+		mkdir -p /u02/hl_dev_db/wal_archive
+		chown postgres:postgres -R /u02/hl_dev_db/wal_archive
+		
+		vim /u01/h1_dev_db/data/postgresql.conf
+		...
+		archive_mode = on
+		archive_command = 'cp %p /u02/hl_dev_db/wal_archive/%f'
+		...
+
+# PostgreSQL Disaster Configurations 
 
 <p align="center" ><img width=400 src="../assets/Multimaster-1.png"> </p>
 
