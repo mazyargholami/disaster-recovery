@@ -4,6 +4,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 <h1 align="center">
 <img   src="./assets/it-diasaster.png">
 </h1>
+
 ## Nginx:
 
 - ### Regular Backups:
