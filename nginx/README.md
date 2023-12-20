@@ -1,5 +1,7 @@
 # Nginx Configurations
 
+<p align="center" ><img width=200 src="../assets/pngegg (1).png"> </p>
+
 ## 1. Use Nginx as a Load Balancer:
   - Set up Nginx as a load balancer to distribute incoming traffic across multiple backend servers. This can be achieved using the upstream directive in your Nginx configuration.
 
