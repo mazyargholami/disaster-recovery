@@ -1,6 +1,6 @@
 # PostgreSQL Configurations 
 
-<p align="center" ><img width=400 src="../assets/Multimaster-.png"> </p>
+<p align="center" ><img width=400 src="../assets/Multimaster-1.png"> </p>
 
 ## Primary
  	locate initdb
