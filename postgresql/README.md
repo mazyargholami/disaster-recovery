@@ -1,6 +1,6 @@
 # PostgreSQL Configurations 
 
-<p align="center" ><img width=200 src="../assets/features_root_analysis.png"> </p>
+<p align="center" ><img width=200 src="../assets/pngegg.png"> </p>
 
 ## Primary
  	locate initdb
