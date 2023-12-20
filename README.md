@@ -8,7 +8,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 
 
 ## [NGINX:](#eof)
-<a id="eof"></a>
+<a href="./nginx/README.md" id="eof"></a>
 
 - ### Regular Backups:
   - Schedule regular backups of Nginx configuration files, website content, and any custom modules.
