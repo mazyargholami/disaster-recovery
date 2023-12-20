@@ -25,6 +25,67 @@
 		...
 - This command will copy the WAL file to /u02/hl_dev_db/wal_archive/ directory.
 
+## Create a Full Backup
+- Take a base backup of your database using the following command:
+
+  
+		export DATESTAMP=$(date +%Y-%m-%d)
+		
+		mkdir -p /backup/hl_dev_db_full_bkp_$DATESTAMP
+		
+		chown postgres:postgres -R /backup 
+		
+		# Create full backup using pg_basebackup
+		pg_basebackup -D /backup/hl_dev_db_full_bkp_2023-03-09 -Ft -z -P -Xs
+		
+		# -F format = TAR ( t )
+		# -z compression = gzip
+		# -P Progress
+		# -Xs wal method = stream
+
+## CASE1: Restore the Recovery Target Time
+	# create new pg_data dir
+	mkdir -p /u01/hl_dev_db_recovery/data
+	chown postgres:postgres -R /u01/hl_dev_db_recovery/data
+	chmod 0750 -R /u01/hl_dev_db_recovery/data
+	
+	# Untar the backup
+	tar -xvf /backup/hl_dev_db_full_bkp_2023-03-09/base.tar.gz -C /u01/hl_dev_db_recovery/data/
+	tar -xvf /backup/hl_dev_db_full_bkp_2023-03-09/pg_wal.tar.gz -C /u01/hl_dev_db_recovery/data/pg_wal/
+	
+	# For Instance, you want to restore the database for Timestamp 15:45
+	# at 15:45 : we only have employees table in postgres db
+	
+	# add the recovery settings to postgresql
+	# Adding recovery settings 
+	vim /u01/hl_dev_db_recovery/data/postgresql.conf 
+	---
+	restore_command = 'cp /u02/hl_dev_db/wal_archive/%f "%p"'
+	recovery_target_time = '2023-03-08 15:45:00'
+	---
+	
+	# start the database 
+	pg_ctl start -D /u01/hl_dev_db_recovery/data -w -t 300 -l logfile
+	
+	# check logs for recovery process
+	tail -200f /u01/hl_dev_db_recovery/data/log/postgresql-Thu.log
+
+## CASE2 : Restore to Recovery Target
+	# stop database
+	pg_ctl stop -D /u01/hl_dev_db_recovery/data
+	
+	# change time in postgresql.conf
+	vim /u01/hl_dev_db_recovery/data/postgresql.conf 
+	---
+	recovery_target = 'immediate'
+	---
+	
+	# start the database 
+	pg_ctl start -D /u01/hl_dev_db_recovery/data -w -t 300 -l logfile
+	
+	# check logs for recovery process
+	tail -200f /u01/hl_dev_db_recovery/data/log/postgresql-Thu.log
+
 # PostgreSQL Disaster Configurations 
 
 <p align="center" ><img width=400 src="../assets/Multimaster-1.png"> </p>
