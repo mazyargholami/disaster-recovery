@@ -23,6 +23,7 @@
 		archive_mode = on
 		archive_command = 'cp %p /u02/hl_dev_db/wal_archive/%f'
 		...
+- This command will copy the WAL file to /u02/hl_dev_db/wal_archive/ directory.
 
 # PostgreSQL Disaster Configurations 
 
