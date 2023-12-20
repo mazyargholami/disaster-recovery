@@ -44,6 +44,8 @@
 		# -Xs wal method = stream
 
 ## CASE1: Restore the Recovery Target Time
+<p align="center" ><img width=800 src="../assets/fig-10-05.png"> </p>
+
 	# create new pg_data dir
 	mkdir -p /u01/hl_dev_db_recovery/data
 	chown postgres:postgres -R /u01/hl_dev_db_recovery/data
@@ -73,6 +75,8 @@
 	tail -200f /u01/hl_dev_db_recovery/data/log/postgresql-Thu.log
 
 ## CASE2 : Restore to Recovery Target
+<p align="center" ><img width=800 src="../assets/fig-10-04.png"> </p>
+
 	# stop database
 	pg_ctl stop -D /u01/hl_dev_db_recovery/data
 	
