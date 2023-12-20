@@ -1,7 +1,7 @@
 # PostgreSQL Configurations 
 
 ## Primary
-	locate initdb
+ 	locate initdb
 	mkdir primary_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
 	cd primary_db
 	mkdir tmp
@@ -36,53 +36,57 @@
 
 
 ## Standby 
-mkdir replica_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
-pg_basebackup -h <primary_ip> -U repuser --checkpoint=fast \
-	-D /home/stark/Projects/lab/database/replica_db -R --slot=some_name -C --port=5433
-or
-pg_basebackup -h primary_ip -U repuser -D /home/stark/Projects/lab/database/replica_db -P --wal-method=stream
+	mkdir replica_db # if you create directory you should check the permission we suggest to don't create directory to automaticly create it by initdb
+	pg_basebackup -h <primary_ip> -U repuser --checkpoint=fast \
+		-D /home/stark/Projects/lab/database/replica_db -R --slot=some_name -C --port=5433
+#### or
+	pg_basebackup -h primary_ip -U repuser -D /home/stark/Projects/lab/database/replica_db -P --wal-method=stream
 
-cd replica_db
-cat postgresql.auto.conf
-mkdir tmp
-vim postgresql.conf
-	listen_addresses = '*'
-	port = 5434
-	unix_socket_directories = '/home/stark/Projects/lab/database/replica_db/tmp/'
-	hot_standby_feedback = on
-	primary_slot_name = 'hot_standby_1'
-	hot_standby = on
-	archive_mode = on
-	primary_conninfo = 'host=127.0.0.1 port=5433 user=repuser password=your_password'
-	recovery_target_timeline = 'latest'
-	archive_command = 'cd'
+- cd replica_db
+- cat postgresql.auto.conf
+- mkdir tmp
+- #### vim postgresql.conf
+		listen_addresses = '*'
+		port = 5434
+		unix_socket_directories = '/home/stark/Projects/lab/database/replica_db/tmp/'
+		hot_standby_feedback = on
+		primary_slot_name = 'hot_standby_1'
+		hot_standby = on
+		archive_mode = on
+		primary_conninfo = 'host=127.0.0.1 port=5433 user=repuser password=your_password'
+		recovery_target_timeline = 'latest'
+		archive_command = 'cd'
 
-/usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db start
-
-## Primary
-psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
-	\x
-	select * from pg_stat_replication;
-
-## Standby
-psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
-	\x
-	select * from pg_stat_wal_receiver;
+- /usr/lib/postgresql/16/bin/pg_ctl -D /home/stark/Projects/lab/database/replica_db start
 
 ## Primary
-psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
-	\x
-	create table tbl(id int);
-	insert into tbl values(1);
-	insert into tbl values(2);
-	\x
+- psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
+  ####
+		\x
+		select * from pg_stat_replication;
 
 ## Standby
-psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
-	select * from tbl;
+- psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
+  ####
+		\x
+		select * from pg_stat_wal_receiver;
+
+## Primary
+- psql --port=5433 postgres --host=/home/stark/Projects/lab/database/primary_db/tmp
+  ####
+		\x
+		create table tbl(id int);
+		insert into tbl values(1);
+		insert into tbl values(2);
+		\x
+
+## Standby
+- psql postgres --port=5434 --host=/home/stark/Projects/lab/database/replica_db/tmp
+  ####
+		select * from tbl;
 
 ## Manual make standby to primary
-/usr/lib/postgresql/16/bin/pg_ctl promote -D /home/stark/Projects/lab/database/replica_db
+- /usr/lib/postgresql/16/bin/pg_ctl promote -D /home/stark/Projects/lab/database/replica_db
 
 ## SSL
 vim /etc/letsencrypt/renewal-hooks/deploy/postgresql.deploy
