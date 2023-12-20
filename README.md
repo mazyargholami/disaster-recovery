@@ -24,7 +24,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
   - Utilize monitoring tools like Prometheus or Nagios to track Nginx performance.
   - Set up alerts for anomalies such as high traffic, server errors, or abnormal resource usage.
 
-## PostgreSQL:
+## <a href="./postgresql/README.md">PostgreSQL:</a>
 
 - ### Database Backups:
   - Regularly backup PostgreSQL databases, and store backups in a secure offsite location.
