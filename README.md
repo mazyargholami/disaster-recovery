@@ -44,7 +44,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
   - Monitor key metrics such as disk space, query performance, and replication lag.
   - Set up alerts for critical events, such as database unavailability or performance degradation.
 
-## Monitoring Strategies for Nginx and PostgreSQL:
+## <a href="./monitoring/README.md">Monitoring Strategies for Nginx and PostgreSQL:</a>
 
 - ### Centralized Monitoring:
   - Use centralized monitoring solutions like Grafana or ELK stack to aggregate and visualize metrics from both Nginx and PostgreSQL.
