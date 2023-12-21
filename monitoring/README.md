@@ -4,8 +4,8 @@
 
 # Auto Strategy 
 
-- ### 1. Nginx
-  - Registering Your Apps -> Add Healthy Check -> Add (fail_timeout) -> Auto Redirecting 
+- ### 1. <a href="../nginx/">Nginx</a>
+  - <a href="../nginx/default.conf">Registering Your Apps -> Add Healthy Check -> Add (fail_timeout) -> Auto Redirecting</a>
 
 - ### 2. Apps
   - Registerin Your Database -> Add Healthy Check -> Add (fail_timeout) -> Auto Renew Connection
@@ -20,3 +20,6 @@
   - DB3 (Slave)
     - Sync to DB2 (Standby) <- DB3 (Slave) -> Lost Connection (DB2 Standby) -> Promote the Slave to Main
       ####
+
+# Manual Strategy
+postgresql#case1-restore-the-recovery-target-time
