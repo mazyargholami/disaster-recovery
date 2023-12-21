@@ -2,7 +2,24 @@
 
 <p align="center" ><img width=400 src="../assets/pngegg (1).png"> </p>
 
-## 1. Use Nginx as a Load Balancer:
+## Version Control:
+#### Objective:
+- Keep Nginx configuration files under version control using tools like Git. This enables easy rollback to a known working state.
+
+      # Initialize a Git repository for Nginx configuration files
+      cd /etc/nginx/
+      git init
+      
+      # Add and commit changes
+      git add .
+      git commit -m "Initial commit"
+      
+      # Rollback to a specific commit if needed
+      git log  # Identify commit hash
+      git revert <commit-hash>
+
+
+## Use Nginx as a Load Balancer:
   - Set up Nginx as a load balancer to distribute incoming traffic across multiple backend servers. This can be achieved using the upstream directive in your Nginx configuration.
 
         http {
@@ -23,7 +40,7 @@
             }
         }
 
-## 2. Configure Health Checks:
+## Configure Health Checks:
   - Implement health checks to monitor the status of your backend servers. Nginx can periodically send requests to check the health of each server and route traffic only to healthy servers.
 
         http {
