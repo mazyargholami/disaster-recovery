@@ -2,7 +2,7 @@
 
 <p align="center"> <img  width=400 src="../assets/it-diasaster.png"> </p>
 
-# Strategy 
+# Auto Strategy 
 
 - ### 1. Nginx
   - Registering Your Apps -> Add Healthy Check -> Add (fail_timeout) -> Auto Redirecting 
