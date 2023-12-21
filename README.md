@@ -28,7 +28,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 - ### Failover Mechanism:
   - Set up automated failover mechanisms to switch to a standby server in case the primary server becomes unavailable.
 
-## <a href="./monitoring/">Strategic Management:</a>
+## <a href="./monitoring/">Monitoring & Strategic Management:</a>
 
 Disaster recovery (DR) is a critical aspect of maintaining business continuity, and it involves the processes, policies, and tools to ensure that IT systems, including databases and applications, can be recovered and restored in the event of a disaster or disruptive event. Monitoring strategies for databases and applications during disaster recovery focus on ensuring the availability, integrity, and performance of these systems. Here are some key strategies for monitoring databases and applications in the context of disaster recovery:
 
