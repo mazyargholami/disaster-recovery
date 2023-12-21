@@ -10,7 +10,7 @@
 - ### 2. Apps
   - Registerin Your Database -> Add Healthy Check -> Add (fail_timeout) -> Auto Renew Connection
 
-- ### 3. Database (Auto Failover)
+- ### 3. <a href="./postgresql/">PostgreSQL DB </a> <a href="./monitoring/monitoring.sh">(Auto Failover)</a>
   - DB1 (Main)
     - Destroyed database
       ####
