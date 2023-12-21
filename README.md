@@ -30,15 +30,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 
 ## <a href="./monitoring/">Monitoring & Strategic Management:</a>
 
-Disaster recovery (DR) is a critical aspect of maintaining business continuity, and it involves the processes, policies, and tools to ensure that IT systems, including databases and applications, can be recovered and restored in the event of a disaster or disruptive event. Monitoring strategies for databases and applications during disaster recovery focus on ensuring the availability, integrity, and performance of these systems. Here are some key strategies for monitoring databases and applications in the context of disaster recovery:
-
-- #### Application Health Monitoring:
-  - Monitor application logs and metrics to ensure that applications are running smoothly.
-  - Set up alerts for any abnormal behavior or errors that could indicate a problem.
-
-- #### Automated Alerts:
-  - Implement automated alerting systems to notify IT staff immediately when an issue arises.
-  - Define thresholds for acceptable performance and set up alerts for deviations from these thresholds.
+Monitoring strategies for databases and applications during disaster recovery focus on ensuring the availability, integrity, and performance of these systems. Here are some key strategies for monitoring databases and applications in the context of disaster recovery:
 
 - #### Backup and Restore Monitoring:
   - Monitor the backup and restore processes to ensure that regular backups are being taken and can be restored successfully.
