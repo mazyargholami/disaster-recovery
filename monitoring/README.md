@@ -21,5 +21,6 @@
     - Sync to DB2 (Standby) <- DB3 (Slave) -> Lost Connection (DB2 Standby) -> Promote the Slave to Main
       ####
 
-# Manual Strategy
-postgresql#case1-restore-the-recovery-target-time
+# <a href="../postgresql#create-a-full-backup">Manual Strategy</a>
+ - ### 1. Take a base backup of your database
+ - ### 2. Restore the Recovery Target Time
