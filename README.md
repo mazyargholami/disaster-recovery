@@ -5,7 +5,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 <p align="center"> <img  width=400 src="./assets/it-diasaster.png"> </p>
 
 
-## <a href="./nginx/README.md">NGINX:</a>
+## <a href="./nginx/">NGINX:</a>
 
 - ### Regular Backups:
   - Schedule regular backups of Nginx configuration files, website content, and any custom modules.
@@ -24,7 +24,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
   - Utilize monitoring tools like Prometheus or Nagios to track Nginx performance.
   - Set up alerts for anomalies such as high traffic, server errors, or abnormal resource usage.
 
-## <a href="./postgresql/README.md">PostgreSQL:</a>
+## <a href="./postgresql/">PostgreSQL:</a>
 
 - ### Database Backups:
   - Regularly backup PostgreSQL databases, and store backups in a secure offsite location.
@@ -39,7 +39,7 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 - ### Failover Mechanism:
   - Set up automated failover mechanisms to switch to a standby server in case the primary server becomes unavailable.
 
-## <a href="./monitoring/README.md">Monitoring Strategies:</a>
+## <a href="./monitoring/">Monitoring Strategies:</a>
 
 Disaster recovery (DR) is a critical aspect of maintaining business continuity, and it involves the processes, policies, and tools to ensure that IT systems, including databases and applications, can be recovered and restored in the event of a disaster or disruptive event. Monitoring strategies for databases and applications during disaster recovery focus on ensuring the availability, integrity, and performance of these systems. Here are some key strategies for monitoring databases and applications in the context of disaster recovery:
 
