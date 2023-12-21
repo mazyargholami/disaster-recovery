@@ -7,22 +7,11 @@ Disaster recovery planning is crucial for ensuring the resilience and availabili
 
 ## <a href="./nginx/">NGINX:</a>
 
-- ### Regular Backups:
-  - Schedule regular backups of Nginx configuration files, website content, and any custom modules.
-  - Store backups in a secure, offsite location to prevent data loss in the event of a disaster.
-
 - ### Version Control:
   - Keep Nginx configuration files under version control using tools like Git. This enables easy rollback to a known working state.
 
 - ### Load Balancing:
   - Implement load balancing across multiple Nginx servers. If one server fails, traffic can be redirected to others, ensuring high availability.
-
-- ### High Availability (HA) Setup:
-  - Deploy Nginx in an HA configuration using tools like keepalived or HAProxy to ensure continuous service availability.
-
-- ### Monitoring and Alerts:
-  - Utilize monitoring tools like Prometheus or Nagios to track Nginx performance.
-  - Set up alerts for anomalies such as high traffic, server errors, or abnormal resource usage.
 
 ## <a href="./postgresql/">PostgreSQL:</a>
 
