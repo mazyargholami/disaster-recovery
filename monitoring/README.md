@@ -12,8 +12,11 @@
 
 - ### 3. Database (Auto Failover)
   - DB1 (Main)
-    - Destroyed database 
+    - Destroyed database
+      ####
   - DB2 (Standby)
     - Sync to DB1 (Main) <- DB2 (Standby) -> Lost Connection (DB1 Main) -> Promote the Standby to Main
+      ####
   - DB3 (Slave)
     - Sync to DB2 (Standby) <- DB3 (Slave) -> Lost Connection (DB2 Standby) -> Promote the Slave to Main
+      ####
