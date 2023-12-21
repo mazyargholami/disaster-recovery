@@ -5,10 +5,10 @@
 # Strategy 
 
 - ### 1. Nginx
-  - Registering Your Apps -> Add Healthy Checkers -> Add (fail_timeout) -> Auto Redirecting 
+  - Registering Your Apps -> Add Healthy Check -> Add (fail_timeout) -> Auto Redirecting 
 
 - ### 2. Apps
-  - Registerin Your Database -> Add Healthy Checkers -> Add (fail_timeout) -> Auto Renew Connection
+  - Registerin Your Database -> Add Healthy Check -> Add (fail_timeout) -> Auto Renew Connection
 
 - ### 3. Database (Auto Failover)
   - DB1 (Main)
