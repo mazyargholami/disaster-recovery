@@ -7,7 +7,7 @@
 - ### 1. <a href="../nginx/">Nginx</a>
   - <a href="../nginx/default.conf">Registering Your Apps -> Add Healthy Check -> Add (fail_timeout) -> Auto Redirecting</a>
 
-- ### 2. Apps
+- ### 2. <a href="../django/">Apps</a>
   - Registerin Your Database -> Add Healthy Check -> Add (fail_timeout) -> Auto Renew Connection
 
 - ### 3. <a href="../postgresql/">PostgreSQL DB </a> <a href="../monitoring/monitoring.sh">(Auto Failover)</a>
